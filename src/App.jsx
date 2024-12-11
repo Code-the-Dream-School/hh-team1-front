@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { getAllData } from "./util/index";
+const URL = "http://localhost:8000/api/v1/";
+import SignUp from "./Component/Authentication/SignUp";
+import Login from "./Component/Authentication/Login";
+import Forgot from "./Component/Authentication/Forgot";
+import Home from "./Component/Authentication/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// const URL = "http://localhost:8000/api/v1/";
-const URL = "/api/v1/";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      const myData = await getAllData(URL);
-      setMessage(myData.data);
-    })();
-
-    return () => {
-      console.log("unmounting");
-    };
-  }, []);
-
   return (
-    <>
-      <h1>{message}</h1>
-    </>
+    <div className="app">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot" element={<Forgot />} />
+          <Route path="" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
